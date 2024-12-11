@@ -56,12 +56,21 @@
      <addaction name="actionImportdatabase"/>
      <addaction name="actionExportdatabase"/>
     </widget>
+    <widget class="QMenu" name="Breakpoints">
+     <property name="title">
+      <string>Breakpoints</string>
+     </property>
+     <property name="icon">
+      <iconset theme="data-copy" resource="../../resource.qrc">
+       <normaloff>:/Default/icons/animal-dog.png</normaloff>:/Default/icons/animal-dog.png</iconset>
+     </property>
+      <addaction name="actionExportBreakpoints"/>
+    </widget>
     <addaction name="actionOpen"/>
     <addaction name="menuRecentFiles"/>
     <addaction name="actionAttach"/>
     <addaction name="actionDetach"/>
     <addaction name="menuDatabase"/>
-    <addaction name="actionExportBreakpoints"/>
     <addaction name="actionPatches"/>
     <addaction name="actionChangeCommandLine"/>
     <addaction name="actionRestartAdmin"/>
