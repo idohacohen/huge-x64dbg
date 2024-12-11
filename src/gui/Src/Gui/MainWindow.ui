@@ -61,6 +61,7 @@
     <addaction name="actionAttach"/>
     <addaction name="actionDetach"/>
     <addaction name="menuDatabase"/>
+    <addaction name="actionExportBreakpoints"/>
     <addaction name="actionPatches"/>
     <addaction name="actionChangeCommandLine"/>
     <addaction name="actionRestartAdmin"/>
@@ -817,6 +818,21 @@
    </property>
    <property name="statusTip">
     <string>Attach the debugger to a process to debug it.</string>
+   </property>
+  </action>
+  <action name="actionExportBreakpoints">
+   <property name="icon">
+    <iconset theme="ExportBreakpoints" resource="../../resource.qrc">
+     <normaloff>:/Default/icons/animal-dog.png</normaloff>:/Default/icons/attach.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export Breakpoints</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Breakpoints</string>
+   </property>
+   <property name="statusTip">
+    <string>Export the breakpoints.</string>
    </property>
   </action>
   <action name="actionDetach">

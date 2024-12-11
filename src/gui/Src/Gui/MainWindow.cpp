@@ -1057,6 +1057,7 @@ void MainWindow::refreshShortcuts()
     setGlobalShortcut(ui->actionDbrecovery, ConfigShortcut("FileDbrecovery"));
     setGlobalShortcut(ui->actionImportdatabase, ConfigShortcut("FileImportDatabase"));
     setGlobalShortcut(ui->actionExportdatabase, ConfigShortcut("FileExportDatabase"));
+    setGlobalShortcut(ui->actionExportBreakpoints, ConfigShortcut("FileExportBreakpoints"));
     setGlobalShortcut(ui->actionRestartAdmin, ConfigShortcut("FileRestartAdmin"));
     setGlobalShortcut(ui->actionExit, ConfigShortcut("FileExit"));
 
@@ -2644,6 +2645,11 @@ void MainWindow::on_actionExportdatabase_triggered()
     if(!filename.length())
         return;
     DbgCmdExec(QString("dbsave \"%1\"").arg(QDir::toNativeSeparators(filename)));
+}
+
+void MainWindow::on_actionExportBreakpoints_triggered()
+{
+    mBreakpointsView->exportTableSlot();
 }
 
 static void setupMenuCustomizationHelper(QMenu* parentMenu, QList<QAction*> & stringList)
