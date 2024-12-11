@@ -2649,7 +2649,7 @@ void MainWindow::on_actionExportdatabase_triggered()
 
 void MainWindow::on_actionExportBreakpoints_triggered()
 {
-    mBreakpointsView->exportTableSlot();
+    mBreakpointsView->exportSpecialTableSlot();
 }
 
 static void setupMenuCustomizationHelper(QMenu* parentMenu, QList<QAction*> & stringList)
