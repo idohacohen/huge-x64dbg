@@ -918,9 +918,15 @@ void AbstractStdTable::exportSpecialTableSlot()
     headers.push_back("Address");
     headers.push_back("State");
     headers.push_back("Type");
-    ExportCSV(3, 3, headers, [this](duint row, duint column)
+    ExportCSV(getRowCount(), 3, headers, [this](duint row, duint column)
     {
-        return getCellContent(row, column);
+        if(column == 0)
+            return getCellContent(row, 1);
+        if(column == 1)
+            return getCellContent(row, 3);
+        if(column == 2)
+            return getCellContent(row, 0);
+        return QString();
     });
 }
 
