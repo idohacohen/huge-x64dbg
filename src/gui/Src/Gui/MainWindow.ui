@@ -23,7 +23,7 @@
      <x>0</x>
      <y>0</y>
      <width>868</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -56,11 +56,18 @@
      <addaction name="actionImportdatabase"/>
      <addaction name="actionExportdatabase"/>
     </widget>
+    <widget class="QMenu" name="menuBreakpoints">
+     <property name="title">
+      <string>Breakpoints</string>
+     </property>
+     <addaction name="actionExportBreakpoints"/>
+    </widget>
     <addaction name="actionOpen"/>
     <addaction name="menuRecentFiles"/>
     <addaction name="actionAttach"/>
     <addaction name="actionDetach"/>
     <addaction name="menuDatabase"/>
+    <addaction name="menuBreakpoints"/>
     <addaction name="actionPatches"/>
     <addaction name="actionChangeCommandLine"/>
     <addaction name="actionRestartAdmin"/>
@@ -819,6 +826,21 @@
     <string>Attach the debugger to a process to debug it.</string>
    </property>
   </action>
+  <action name="actionExportBreakpoints">
+   <property name="icon">
+    <iconset theme="ExportBreakpoints" resource="../../resource.qrc">
+     <normaloff>:/Default/icons/animal-dog.png</normaloff>:/Default/icons/animal-dog.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export Breakpoints</string>
+   </property>
+   <property name="toolTip">
+    <string>Export Breakpoints</string>
+   </property>
+   <property name="statusTip">
+    <string>Export the breakpoints.</string>
+   </property>
+  </action>
   <action name="actionDetach">
    <property name="icon">
     <iconset theme="detach" resource="../../resource.qrc">
@@ -1547,6 +1569,11 @@
    </property>
    <property name="statusTip">
     <string>Output the detailed help information about an assembly mnemonic to the log. Equivalent command &quot;mnemonichelp name&quot;.</string>
+   </property>
+  </action>
+  <action name="actionExport_Breakpoints">
+   <property name="text">
+    <string>ExportBreakpoints</string>
    </property>
   </action>
  </widget>
