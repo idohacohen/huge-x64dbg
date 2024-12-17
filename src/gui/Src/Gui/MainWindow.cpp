@@ -8,6 +8,8 @@
 #include <QMimeData>
 #include <QDesktopServices>
 #include <QStatusTipEvent>
+#include <QStringList>
+#include <QFile>
 #include "Configuration.h"
 #include "SettingsDialog.h"
 #include "AppearanceDialog.h"
@@ -1057,6 +1059,8 @@ void MainWindow::refreshShortcuts()
     setGlobalShortcut(ui->actionDbrecovery, ConfigShortcut("FileDbrecovery"));
     setGlobalShortcut(ui->actionImportdatabase, ConfigShortcut("FileImportDatabase"));
     setGlobalShortcut(ui->actionExportdatabase, ConfigShortcut("FileExportDatabase"));
+    setGlobalShortcut(ui->actionExportBreakpoints, ConfigShortcut("FileExportBreakpoints"));
+    setGlobalShortcut(ui->actionImportBreakpoints, ConfigShortcut("FileImportBreakpoints"));
     setGlobalShortcut(ui->actionRestartAdmin, ConfigShortcut("FileRestartAdmin"));
     setGlobalShortcut(ui->actionExit, ConfigShortcut("FileExit"));
 
@@ -2644,6 +2648,81 @@ void MainWindow::on_actionExportdatabase_triggered()
     if(!filename.length())
         return;
     DbgCmdExec(QString("dbsave \"%1\"").arg(QDir::toNativeSeparators(filename)));
+}
+
+void MainWindow::on_actionExportBreakpoints_triggered()
+{
+    mBreakpointsView->exportSpecialTableSlot();
+}
+
+void MainWindow::on_actionImportBreakpoints_triggered()
+{
+    if(!DbgIsDebugging())
+        return;
+    auto filename = QFileDialog::getOpenFileName(this, tr("Import database"));
+    if(!filename.length())
+        return;
+    filename = QDir::toNativeSeparators(filename);
+    QFile file(filename);
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        return;
+    }
+    QString Type;
+    QString Address;
+
+    file.readLine(); // Skip the first line
+    while(!file.atEnd())
+    {
+        QByteArray line = file.readLine();
+        if(line.split(',')[2] == "\n")
+        {
+            Address = QString(line.split(',')[0]);
+            if(Type == "Software\n")
+            {
+                DbgCmdExec(QString("bp %1").arg(Address));
+                if(line.split(',')[1] == "Disabled")
+                {
+                    DbgCmdExec(QString("bpd %1").arg(Address));
+                }
+            }
+            else if(Type == "Hardware\n")
+            {
+                DbgCmdExec(QString("bph %1").arg(Address));
+                if(line.split(',')[1] == "Disabled")
+                {
+                    DbgCmdExec(QString("bphd %1").arg(Address));
+                }
+
+            }
+            else if(Type == "Memory\n")
+            {
+                DbgCmdExec(QString("bpm %1").arg(Address));
+                if(line.split(',')[1] == "Disabled")
+                {
+                    DbgCmdExec(QString("bpmd %1").arg(Address));
+                }
+            }
+            else if(Type == "DLL\n")
+            {
+                DbgCmdExec(QString("bpdll %1").arg(Address));
+                if(line.split(',')[1] == "Disabled")
+                {
+                    DbgCmdExec(QString("bpddll %1").arg(Address));
+                }
+            }
+            if(line.split(',')[1] == "One-time")
+            {
+                DbgCmdExec(QString("SetBreakpointSingleshoot %1 \"%2\"").arg(Address).arg(1));
+            }
+        }
+        else
+        {
+            Type = line.split(',')[2];
+        }
+    }
+
+
 }
 
 static void setupMenuCustomizationHelper(QMenu* parentMenu, QList<QAction*> & stringList)

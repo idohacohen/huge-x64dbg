@@ -911,6 +911,25 @@ void AbstractStdTable::exportTableSlot()
     });
 }
 
+void AbstractStdTable::exportSpecialTableSlot()
+{
+    std::vector<QString> headers;
+    headers.reserve(getColumnCount());
+    headers.push_back("Address");
+    headers.push_back("State");
+    headers.push_back("Type");
+    ExportCSV(getRowCount(), 3, headers, [this](duint row, duint column)
+    {
+        if(column == 0)
+            return getCellContent(row, 1);
+        if(column == 1)
+            return getCellContent(row, 3);
+        if(column == 2)
+            return getCellContent(row, 0);
+        return QString();
+    });
+}
+
 void AbstractStdTable::setupCopyMenu(QMenu* copyMenu)
 {
     if(!getColumnCount())

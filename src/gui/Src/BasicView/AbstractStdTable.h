@@ -87,6 +87,7 @@ public slots:
     void copyTableResizeToLogSlot();
     void copyEntrySlot();
     void exportTableSlot();
+    void exportSpecialTableSlot();
     void contextMenuRequestedSlot(const QPoint & pos);
     void headerButtonPressedSlot(duint col);
 
