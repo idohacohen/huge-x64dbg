@@ -61,6 +61,7 @@
       <string>Breakpoints</string>
      </property>
      <addaction name="actionExportBreakpoints"/>
+      <addaction name="actionImportBreakpoints"/>
     </widget>
     <addaction name="actionOpen"/>
     <addaction name="menuRecentFiles"/>
@@ -839,6 +840,21 @@
    </property>
    <property name="statusTip">
     <string>Export the breakpoints.</string>
+   </property>
+  </action>
+<action name="actionImportBreakpoints">
+   <property name="icon">
+    <iconset theme="ImportBreakpoints" resource="../../resource.qrc">
+     <normaloff>:/Default/icons/animal-dog.png</normaloff>:/Default/icons/animal-dog.png</iconset>
+   </property>
+   <property name="text">
+    <string>Import Breakpoints</string>
+   </property>
+   <property name="toolTip">
+    <string>Import Breakpoints</string>
+   </property>
+   <property name="statusTip">
+    <string>Import the breakpoints.</string>
    </property>
   </action>
   <action name="actionDetach">
